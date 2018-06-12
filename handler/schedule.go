@@ -12,7 +12,7 @@ import (
 func Schedule(rw http.ResponseWriter, req *http.Request) {
 	var resp proto.Response
 
-	teams, err := db.Team.List(context.Background())
+	teams, err := db.Team.List(context.Background(), 16)
 	if err != nil {
 		resp.Code = 1
 		resp.Message = err.Error()

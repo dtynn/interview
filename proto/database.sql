@@ -1,3 +1,5 @@
+CREATE SCHEMA interview;
+
 CREATE TABLE interview.team (
 	id bigint NOT NULL,
 	name text

@@ -12,7 +12,7 @@ var Team team
 type team struct {
 }
 
-func (t *team) List(ctx context.Context) ([]proto.Team, error) {
+func (t *team) List(ctx context.Context, limit int) ([]proto.Team, error) {
 	teams := make([]proto.Team, 0, 32)
 	if err := Invoke(func(db *sqlx.DB) error {
 		query := `
@@ -21,9 +21,10 @@ func (t *team) List(ctx context.Context) ([]proto.Team, error) {
 			name
 		FROM interview.team
 		ORDER BY id ASC
+		LIMIT $1
 		`
 
-		return db.SelectContext(ctx, &teams, query)
+		return db.SelectContext(ctx, &teams, query, limit)
 	}); err != nil {
 		return nil, err
 	}
